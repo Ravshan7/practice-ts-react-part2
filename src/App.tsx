@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Route, NavLink} from "react-router-dom";
+import MainScreen from "./pages/MainScreen";
+import EventPage from "./pages/EventPage";
+import UserPage from "./pages/UserPage";
+import TodoPage from "./pages/TodoPage";
+import UserPageParam from "./components/UserPageParam";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+
+    return (
+        <BrowserRouter>
+            <div>
+                <NavLink to="/" exact>Главная</NavLink>
+                <NavLink to="/todos">todos</NavLink>
+                <NavLink to="/users" >users</NavLink>
+                <NavLink to="/events">events</NavLink>
+            </div>
+            <div>
+                <Route path='/' exact render={() => <MainScreen />}/>
+                <Route path='/todos' render={() => <TodoPage />}/>
+                <Route path='/users' exact render={() => <UserPage />}/>
+                <Route path='/users/:id' render={() => <UserPageParam />}/>
+                <Route path='/events'render={() => <EventPage />}/>
+            </div>
+        </BrowserRouter>
+    );
+};
 
 export default App;
